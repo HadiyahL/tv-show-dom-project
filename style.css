@@ -7,10 +7,46 @@ html {
   margin: 0;
   font-family: "Faustina", serif;
 }
-
-#root {
+#header {
+  /* margin-bottom: 2rem; */
+}
+.title {
+  background-color: #8c6673;
+  color: white;
+  padding: 3rem;
+  text-transform: uppercase;
+  font-size: 4rem;
+  text-align: center;
+}
+.container {
   width: 90%;
-  margin: 5rem auto;
+  margin: 0 auto;
+  /* background-color: beige; */
+  padding: 3rem;
+}
+.searchEpisodes {
+  width: 85%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-evenly;
+}
+#search {
+  width: 30%;
+}
+input {
+  padding: 2px;
+  max-width: 750px;
+  border-radius: 0.2rem;
+  border: 0.01rem solid rgba(0, 0, 0, 0.342);
+}
+.searchEpisodes span {
+  font-size: 1.6rem;
+  color: #8c6673;
+  font-weight: 700;
+}
+.episodes {
+  width: 90%;
+  margin: 2rem auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
@@ -21,12 +57,12 @@ html {
   width: 30%;
   padding: 1.5rem;
   box-shadow: 0.2rem 0.2rem 0.5rem grey;
-  background-color: aliceblue;
+  background-color: #f7ecec;
   text-align: center;
   margin-bottom: 2rem;
 }
 .episode-name {
-  border: 0.5px solid rgb(171, 188, 204);
+  border: 0.5px solid #8c6673;
   padding: 1.5rem;
   border-radius: 0.4rem;
 }
@@ -41,3 +77,22 @@ html {
   text-align: justify;
   font-size: 1.4rem;
 }
+
+#footer {
+  padding: 3rem;
+  background-color: #8c6673;
+  text-align: right;
+  color: white;
+  font-size: 1.5rem;
+}
+.apiLink {
+  text-decoration: none;
+  color: rgb(224, 220, 245);
+  font-size: 1.6rem;
+}
+.apiLink:hover {
+  color: #000000;
+}
+
+/*====== MEDIA QUERIES ======*/
+/* @media only screen and  */

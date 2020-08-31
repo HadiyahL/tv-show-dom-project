@@ -13,14 +13,24 @@
   </head>
 
   <body>
-    <div id="root">
-      <!-- <div class="episode">
-        <h2 class="episode-name"></h2>
-        <img src="" alt="" class="episode-img">
-        <p class="episode-summary"></p>
-      </div> -->
-    </div>
+    <header id="header">
+      <h1 class="title">Top rated tv series</h1>
+    </header>
+    <div class="container">
+      <div class="searchEpisodes">
+        <select name="episodes" id="episodesDropdown" class="searching">
+          <option selected value="default">All Episodes</option>
+        </select>
+        <form action="" id="search" class="searching">
+          <input type="text" placeholder="Search episodes..." />
+        </form>
+      </div>
 
+      <div class="episodes"></div>
+    </div>
+<footer id="footer">
+  <p class="apiSource">These data were sourced from <a href="https://www.tvmaze.com/" class="apiLink" target="_blank">TVMaze.com</a></p>
+</footer>
     <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
     <script src="episodes.js"></script>
 
