@@ -18,8 +18,11 @@
     </header>
     <div class="container">
       <div class="searchEpisodes">
+        <select name="shows" id="showsDropdown" class="searching">
+          <option selected value="default">All Shows</option>
+        </select>
         <select name="episodes" id="episodesDropdown" class="searching">
-          <option selected value="default">All Episodes</option>
+          <option selected value="">All Episodes</option>
         </select>
         <form action="" id="search" class="searching">
           <input type="text" placeholder="Search episodes..." />
@@ -28,13 +31,19 @@
 
       <div class="episodes"></div>
     </div>
-<footer id="footer">
-  <p class="apiSource">These data were sourced from <a href="https://www.tvmaze.com/" class="apiLink" target="_blank">TVMaze.com</a></p>
-</footer>
+    <footer id="footer">
+      <p class="apiSource">
+        These data were sourced from
+        <a href="https://www.tvmaze.com/" class="apiLink" target="_blank"
+          >TVMaze.com</a
+        >
+      </p>
+    </footer>
     <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
     <script src="episodes.js"></script>
 
     <!-- Loads YOUR javascript code -->
-    <script src="script.js"></script>
+    <script src="shows.js"></script>
+    <script src="script1.js"></script>
   </body>
 </html>

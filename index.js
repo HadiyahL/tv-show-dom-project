@@ -29,3 +29,6 @@ function makePageForEpisodes(episodeList) {
         imageEl.src = episode.image.medium;
     })
 }
+
+["#a70267", "#f10c49", "#fb6b41", "#f6d86b", "#339194"];
+["#382f32", "#ffeaf2", "#fcd9e5", "#fbc5d8", "#f1396d"];

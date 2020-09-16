@@ -1,19 +1,28 @@
 //You can edit ALL of the code here
 
-const allEpisodes = getAllEpisodes();
+let allEpisodes = "";
+let dropdownEl = document.querySelector("#episodesDropdown");
 
-function setup() {
-  console.log(allEpisodes);
-  makePageForEpisodes(allEpisodes);
+function fetchEpisodes(showId = 82) {
+  fetch(`https://api.tvmaze.com/shows/${showId}/episodes`)
+    .then((response) => response.json())
+    .then((data) => {
+      allEpisodes = data;
+      // console.log(allEpisodes);
+      makePageForEpisodes(allEpisodes);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 }
 let displaySpan = document.createElement("span");
 
-function makePageForEpisodes(episodeList) {
+function makePageForEpisodes(episodesArray) {
   const episodesElem = document.querySelector(".episodes");
   episodesElem.textContent = "";
 
   //episodesElem.textContent = `Got ${episodeList.length} episode(s)`;
-  episodeList.forEach((episode) => {
+  episodesArray.forEach((episode) => {
     let divEl = document.createElement("div");
     let header = document.createElement("h2");
     let image = document.createElement("img");
@@ -23,8 +32,11 @@ function makePageForEpisodes(episodeList) {
     //ADDING CONTENT TO THE ELEMENTS CREATED
     spanEl.textContent = displayEpisodeCode(episode);
     header.textContent = `${episode.name} - `;
-    image.src = episode.image.original;
-    textEl.innerHTML = episode.summary;
+    if (episode.image !== null) {
+      image.src = episode.image.original;
+    }
+
+    textEl.innerHTML = episode.summary || "Sorry, no summary provided.";
 
     //APPENDING THE ELEMENTS CREATED AS APPROPRIATE
     episodesElem.appendChild(divEl);
@@ -51,10 +63,11 @@ function makePageForEpisodes(episodeList) {
   });
   let divElem = document.querySelector(".searchEpisodes");
 
-  displaySpan.textContent = `Displaying ${allEpisodes.length}/${allEpisodes.length} episodes`;
+  displaySpan.textContent = `Displaying ${episodesArray.length}/${allEpisodes.length} episodes`;
   displaySpan.className = "searching";
   divElem.appendChild(displaySpan);
-  selectEpisode(episodeList);
+  selectEpisode(episodesArray);
+  createShowList();
 }
 
 //FUNCTION SEARCHING THE EPISODES
@@ -77,10 +90,30 @@ function searchEpisodes(event) {
   console.log(spanEl);
 }
 
-//FUNCTION CREATING & ADDING OPTIONS TO THE SELECT ELEMENT
-function selectEpisode(episodeList) {
-  let dropdownEl = document.querySelector("#episodesDropdown");
-  episodeList.forEach((episode) => {
+//FUNCTION CREATING & ADDING OPTIONS TO THE SHOW SELECT ELEMENT
+function createShowList() {
+  let showDropdown = document.querySelector("#showsDropdown");
+  let shows = getAllShows();
+  //console.log(shows);
+  shows
+    .sort((a, b) => a.name.localeCompare(b.name))
+    .forEach((show) => {
+      let optionEl = document.createElement("option");
+      optionEl.textContent = show.name;
+      showDropdown.appendChild(optionEl);
+      optionEl.value = show.id;
+    });
+}
+
+//FUNCTION CREATING & ADDING OPTIONS TO THE EPISODE SELECT ELEMENT
+function selectEpisode(episodesArray) {
+  dropdownEl.textContent = "";
+  let defaultOption = document.createElement("option");
+  defaultOption.textContent = "All Episodes";
+  defaultOption.value = "default";
+  dropdownEl.appendChild(defaultOption);
+
+  episodesArray.forEach((episode) => {
     let optionEl = document.createElement("option");
     optionEl.textContent = `${displayEpisodeCode(episode)} - ${episode.name}`;
     optionEl.value = episode.name;
@@ -90,11 +123,20 @@ function selectEpisode(episodeList) {
   let selection = document.querySelector("#episodesDropdown");
   selection.addEventListener("change", selectOption);
 }
-
+//FUNCTION SELECTING SHOW FROM DROPDOWN ENSURING ONLY SELECTED SHOW IS DISPLAYED
+function selectShow(event) {
+  let showId = event.target.value;
+  fetchEpisodes(showId);
+}
+document.querySelector("#showsDropdown").addEventListener("change", selectShow);
 //FUNCTION SELECTING EPISODE FROM DROPDOWN ENSURING ONLY SELECTED EPISODE IS DISPLAYED
 function selectOption(event) {
   let episodeName = event.target.value;
+  console.log(episodeName);
   if (episodeName === "default") {
+    alert("default clicked");
+    // const episodesElem = document.querySelector(".episodes");
+    // episodesElem.textContent = "";
     return makePageForEpisodes(allEpisodes);
   }
   let selectedEpisode = allEpisodes.filter((episode) => {
@@ -120,4 +162,5 @@ function displayEpisodeCode(episode) {
 
   return `S${season}E${epi}`;
 }
-window.onload = setup;
+
+fetchEpisodes();

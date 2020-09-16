@@ -8,10 +8,12 @@ html {
   font-family: "Faustina", serif;
 }
 #header {
-  /* margin-bottom: 2rem; */
+  /* position: fixed;
+  width: 100%;
+  top: 0; */
 }
 .title {
-  background-color: #8c6673;
+  background-color:#a70267;
   color: white;
   padding: 3rem;
   text-transform: uppercase;
@@ -57,7 +59,7 @@ input {
   width: 30%;
   padding: 1.5rem;
   box-shadow: 0.2rem 0.2rem 0.5rem grey;
-  background-color: #f7ecec;
+  background-color: #fcd9e5;
   text-align: center;
   margin-bottom: 2rem;
 }
