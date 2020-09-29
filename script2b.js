@@ -1,4 +1,14 @@
-//You can edit ALL of the code here
+/*
+makePageForShows (or makeListOfShows to be sure that you don't mistake it with the whole page)
+makeHeaderInputsForShows
+makePageForEpisodes
+makeHeaderInputsForEpisodes
+*/
+
+function setup() {
+  let allShows = getAllShows();
+  makePageForShows(allShows);
+}
 
 let allEpisodes = "";
 let dropdownEl = document.querySelector("#episodesDropdown");
@@ -10,13 +20,122 @@ function fetchEpisodes(showId = 82) {
       allEpisodes = data;
       // console.log(allEpisodes);
       makePageForEpisodes(allEpisodes);
-      createEpisodeDropdown(allEpisodes);
     })
     .catch((error) => {
       console.log(error);
     });
 }
+
+function makePageForShows(showsArray) {
+  let shows = document.querySelector(".shows");
+  showsArray.forEach((show) => {
+    //console.log(show);
+    //CREATE ELEMENTS
+    let showBox = document.createElement("div");
+    let showInfo = document.createElement("div");
+    let showText = document.createElement("div");
+    let showName = document.createElement("h2");
+    let showImage = document.createElement("img");
+    //let showSummary = document.createElement("p");
+    let showDetails = document.createElement("ul");
+
+    //ATTACH CONTENT TO ELEMENTS
+    showName.textContent = show.name;
+    if (show.image !== null) {
+      showImage.src = show.image.original;
+    }
+    showSummary = show.summary;
+    showDetails.innerHTML = `<li>Genre: ${show.genres}</li>
+                            <li>Runtime: ${show.runtime}</li>
+                            <li>Rating: ${show.runtime}</li>
+                            <li>Status: ${show.status}</li>`;
+    //APPEND ELEMENTS
+    showBox.appendChild(showName);
+    showBox.appendChild(showInfo);
+    showBox.appendChild(showText);
+    shows.appendChild(showBox);
+
+    showInfo.appendChild(showImage);
+    showText.innerHTML += showSummary;
+    showText.appendChild(showDetails);
+
+    //ADDING CLASS NAME
+    showBox.className = "showBox";
+    showText.className = "showText";
+    showInfo.className = "showInfo";
+
+    //ADDING ID TO THE SHOWS
+    showBox.id = show.id;
+
+    //ADDING EVENT LISTENER TO ENABLE GETTING THE EPISODES FOR SHOW SELECTED
+    showBox.addEventListener("click", showBoxHandler);
+  });
+  makeHeaderInputsForShows();
+}
+
+function makeHeaderInputsForShows() {
+    createShowList();
+}
+
+//FUNCTION CREATING A BUTTON THAT RETURNS TO SHOW LIST
+function createBackToShowsListButton() {
+  let backToShowListButton = document.createElement("button");
+  let divElem = document.querySelector(".searchEpisodes");
+  backToShowListButton.textContent = "Back To Show";
+  backToShowListButton.className = "homePageBtn";
+  divElem.prepend(backToShowListButton);
+  backToShowListButton.addEventListener("click", returnToShowsPage);
+}
+//ADDING EVENT LISTENER TO THE 'BACK TO SHOW' BUTTON TO RETURN TO SHOWS LIST & HIDE ALL THE EPISODES
+function returnToShowsPage() {
+  makePageForShows(allShows);
+  const episodesElem = document.querySelector(".episodes");
+  episodesElem.textContent = "";
+  let bactToShowBtn = document.querySelector(".homePageBtn");
+  bactToShowBtn.remove();
+  hideEpisodesDropdown();
+  showShowsDropdown();
+}
+
+//FUNCTION CREATING & ADDING OPTIONS TO THE SHOW SELECT ELEMENT
+function createShowList() {
+    let showDropdown = document.querySelector("#showsDropdown");
+    let shows = getAllShows();
+    //console.log(shows);
+    shows
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .forEach((show) => {
+            let optionEl = document.createElement("option");
+            optionEl.textContent = show.name;
+            showDropdown.appendChild(optionEl);
+            optionEl.value = show.id;
+        });
+}
+
+function showBoxHandler(event) {
+  let { id } = event.currentTarget;
+  fetchEpisodes(id);
+  removeShows();
+}
+// FUNCTION REMOVE SHOWS
+function removeShows() {
+  let showsEl = document.querySelector(".shows");
+  showsEl.textContent = "";
+}
+//FUNCTION TO HIDE SHOWS SELECT ELEMENT
+function hideShowsDropdown() {
+  let showsDropdown = document.querySelector("#showsDropdown");
+  showsDropdown.classList.add("hide");
+}
+
+//FUNCTION TO SHOW SHOWS SELECT ELEMENT /
+function showShowsDropdown() {
+  let showsDropdown = document.querySelector("#showsDropdown");
+  showsDropdown.classList.remove("hide");
+}
 let displaySpan = document.createElement("span");
+
+/*========================================= EPISODES SECTION ================================================*/
 
 function makePageForEpisodes(episodesArray) {
   const episodesElem = document.querySelector(".episodes");
@@ -67,10 +186,15 @@ function makePageForEpisodes(episodesArray) {
   displaySpan.textContent = `Displaying ${episodesArray.length}/${allEpisodes.length} episodes`;
   displaySpan.className = "searching";
   divElem.appendChild(displaySpan);
+  selectEpisode(episodesArray);
   
-  createShowList();
+  makeHeaderInputsForEpisodes();
 }
 
+function makeHeaderInputsForEpisodes() {
+    createBackToShowsListButton();
+    hideShowsDropdown();
+}
 //FUNCTION SEARCHING THE EPISODES
 function searchEpisodes(event) {
   // event.preventDefault();
@@ -82,31 +206,17 @@ function searchEpisodes(event) {
     return name.includes(searchTerm) || summary.includes(searchTerm);
   });
   let divEl = document.querySelector(".searchEpisodes");
+
   makePageForEpisodes(filteredEpisodes);
 
   displaySpan.textContent = `Displaying ${filteredEpisodes.length}/${allEpisodes.length} episodes`;
 
-  divEl.appendChild(spanEl);
-  console.log(spanEl);
 }
 
-//FUNCTION CREATING & ADDING OPTIONS TO THE SHOW SELECT ELEMENT
-function createShowList() {
-  let showDropdown = document.querySelector("#showsDropdown");
-  let shows = getAllShows();
-  //console.log(shows);
-  shows
-    .sort((a, b) => a.name.localeCompare(b.name))
-    .forEach((show) => {
-      let optionEl = document.createElement("option");
-      optionEl.textContent = show.name;
-      showDropdown.appendChild(optionEl);
-      optionEl.value = show.id;
-    });
-}
+
 
 //FUNCTION CREATING & ADDING OPTIONS TO THE EPISODE SELECT ELEMENT
-function createEpisodeDropdown(episodesArray) {
+function selectEpisode(episodesArray) {
   dropdownEl.textContent = "";
   let defaultOption = document.createElement("option");
   defaultOption.textContent = "All Episodes";
@@ -126,15 +236,17 @@ function createEpisodeDropdown(episodesArray) {
 //FUNCTION SELECTING SHOW FROM DROPDOWN ENSURING ONLY SELECTED SHOW IS DISPLAYED
 function selectShow(event) {
   let showId = event.target.value;
-  fetchEpisodes(showId)
-  
+  fetchEpisodes(showId);
 }
 document.querySelector("#showsDropdown").addEventListener("change", selectShow);
 //FUNCTION SELECTING EPISODE FROM DROPDOWN ENSURING ONLY SELECTED EPISODE IS DISPLAYED
 function selectOption(event) {
   let episodeName = event.target.value;
-  
+  console.log(episodeName);
   if (episodeName === "default") {
+    alert("default clicked");
+    // const episodesElem = document.querySelector(".episodes");
+    // episodesElem.textContent = "";
     return makePageForEpisodes(allEpisodes);
   }
   let selectedEpisode = allEpisodes.filter((episode) => {
@@ -161,4 +273,4 @@ function displayEpisodeCode(episode) {
   return `S${season}E${epi}`;
 }
 
-fetchEpisodes();
+window.onload = setup;
