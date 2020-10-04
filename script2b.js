@@ -5,10 +5,7 @@ makePageForEpisodes
 makeHeaderInputsForEpisodes
 */
 
-function setup() {
-  let allShows = getAllShows();
-  makePageForShows(allShows);
-}
+
 
 let allEpisodes = "";
 let dropdownEl = document.querySelector("#episodesDropdown");

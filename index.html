@@ -9,6 +9,12 @@
       href="https://fonts.googleapis.com/css2?family=Faustina:ital,wght@0,400;0,700;1,400&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   </head>
 
@@ -16,21 +22,8 @@
     <header id="header">
       <h1 class="title">Top rated tv series</h1>
     </header>
-    <div class="container">
-      <div class="searchEpisodes">
-        <select name="shows" id="showsDropdown" class="searching">
-          <option selected value="default">All Shows</option>
-        </select>
-        <select name="episodes" id="episodesDropdown" class="searching hide">
-          <!-- <option selected value=""></option> -->
-        </select>
-        <form action="" id="search" class="searching">
-          <input type="text" placeholder="Search episodes..." />
-        </form>
-      </div>
-      <div class="shows"></div>
-      <div class="episodes"></div>
-    </div>
+    <div id="root"></div>
+
     <footer id="footer">
       <p class="apiSource">
         These data were sourced from
@@ -44,6 +37,6 @@
 
     <!-- Loads YOUR javascript code -->
     <script src="shows.js"></script>
-    <script src="script2a.js"></script>
+    <script src="scriptFinale.js"></script>
   </body>
 </html>
