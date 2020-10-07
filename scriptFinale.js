@@ -154,7 +154,7 @@ function makePageForShows(showsArray) {
     }
     showSummary = show.summary;
     showDetails.innerHTML = `<li><b>Genre:</b> ${show.genres}</li>
-                            <li><b>Runtime:</b> ${show.runtime}</li>
+                            <li><b>Runtime:</b> ${show.runtime} minutes</li>
                             <li><b>Rating:</b> ${show.rating.average}</li>
                             <li><b>Status:</b> ${show.status}</li>`;
     //ADDING CLASS NAME
@@ -164,7 +164,7 @@ function makePageForShows(showsArray) {
     showImage.className = "showImage";
     showName.className = "showName";
     showDetails.className = "showDetails";
-    
+
     //APPEND ELEMENTS
     showBox.appendChild(showName);
     showBox.appendChild(showInfo);
