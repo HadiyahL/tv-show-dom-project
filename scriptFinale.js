@@ -60,6 +60,9 @@ function selectShow(event) {
   let showId = event.target.value;
   let selectedShow = document.getElementById(showId);
   selectedShow.scrollIntoView({ block: "center" });
+  let selectEl = document.querySelector('.showsDropdown');
+  selectEl.textContent = "";
+  createShowList();
 }
 //FUNCTION CREATING & ADDING OPTIONS TO THE SHOW SELECT ELEMENT
 function createShowList() {
