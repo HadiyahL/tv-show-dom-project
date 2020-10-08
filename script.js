@@ -58,15 +58,21 @@ function createShowsSelectElem() {
 }
 function selectShow(event) {
   let showId = event.target.value;
-  let selectedShow = document.getElementById(showId);
-  selectedShow.scrollIntoView({ block: "center" });
-  let selectEl = document.querySelector('.showsDropdown');
-  selectEl.textContent = "";
-  createShowList();
+  if (showId == "default") {
+    let searchBar = document.querySelector(".showsSearch");
+    searchBar.value = "";
+    createShowList(shows);
+    makePageForShows(shows);
+    displayShowsResult(shows, shows);
+  } else {
+    let selectedShow = document.getElementById(showId);
+    selectedShow.scrollIntoView({ block: "center" });
+  }
 }
 //FUNCTION CREATING & ADDING OPTIONS TO THE SHOW SELECT ELEMENT
-function createShowList() {
+function createShowList(shows) {
   let showsDropdown = document.querySelector(".showsDropdown");
+  showsDropdown.textContent = "";
   let optionEl = document.createElement("option");
   optionEl.textContent = "All Shows";
   optionEl.value = "default";
@@ -82,7 +88,7 @@ function createShowList() {
 }
 function createShowsDropdown() {
   createShowsSelectElem();
-  createShowList();
+  createShowList(shows);
 }
 /*========================== END OF ===========================*/
 
@@ -102,6 +108,7 @@ function handleShowsSearch(event) {
   const searchResult = filterShows(shows, searchTerm);
   makePageForShows(searchResult);
   displayShowsResult(searchResult, shows);
+  createShowList(searchResult);
 }
 function filterShows(showsArray, input) {
   return showsArray.filter((show) => {
