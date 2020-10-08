@@ -378,7 +378,6 @@ function createPageForEpisodes() {
 function makePageForEpisodes(episodesArray) {
   let episodesContainer = document.querySelector(".episodesContainer");
   episodesContainer.textContent = "";
-
   episodesArray.forEach((episode) => {
     let divEl = document.createElement("div");
     let header = document.createElement("h2");
