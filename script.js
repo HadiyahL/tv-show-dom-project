@@ -119,13 +119,13 @@ function createShowsFilterResult(showsArray) {
   const displayResult = document.createElement("span");
   displayResult.className = "showsFilterResult";
   displayResult.classList.add("showsHeaderEl");
-  displayResult.textContent = `Displaying ${showsArray.length} / ${showsArray.length}`;
+  displayResult.textContent = `Displaying ${showsArray.length} / ${showsArray.length} shows`;
   const showsHeader = document.querySelector(".showsHeader");
   showsHeader.appendChild(displayResult);
 }
 function displayShowsResult(filteredShows, allShows) {
   const displayResult = document.querySelector(".showsFilterResult");
-  displayResult.textContent = `Displaying ${filteredShows.length} / ${allShows.length}`;
+  displayResult.textContent = `Displaying ${filteredShows.length} / ${allShows.length} shows`;
 }
 
 /*================================ENDS==================*/
@@ -356,13 +356,13 @@ function searchEpisodes(event) {
 function createEpisodesFilterResult(episodesArray) {
   const displayResult = document.createElement("span");
   displayResult.className = "episodesFilterResult";
-  displayResult.textContent = `Displaying ${episodesArray.length} / ${episodesArray.length}`;
+  displayResult.textContent = `Displaying ${episodesArray.length} / ${episodesArray.length}  episodes`;
   const episodesHeader = document.querySelector(".episodesHeader");
   episodesHeader.appendChild(displayResult);
 }
 function displayEpisodesResult(filteredEpisodes, allEpisodes) {
   const displayResult = document.querySelector(".episodesFilterResult");
-  displayResult.textContent = `Displaying ${filteredEpisodes.length} / ${allEpisodes.length}`;
+  displayResult.textContent = `Displaying ${filteredEpisodes.length} / ${allEpisodes.length} episodes`;
 }
 /*================================EPISODES FILTER RESULT ENDS ==================*/
 
