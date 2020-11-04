@@ -88,6 +88,27 @@ body {
   list-style-type: none;
   letter-spacing: 1.5px;
 }
+#scrollToTop {
+  visibility: hidden;
+  position: fixed;
+  bottom: 2rem;
+  right: 3rem;
+  border: none;
+  opacity: 0;
+  transition: opacity 1s;
+}
+#scrollToTop i:hover {
+  color: mistyrose;
+  background-color: #a70267;
+}
+#scrollToTop i {
+  font-size: 4rem;
+  color: #a70267;
+  background-color: mistyrose;
+  z-index: 99;
+  outline: none;
+  border-radius: 50px;
+}
 /************************************************
             EPISODES 
 *********************************************** */
@@ -220,6 +241,8 @@ input {
   }
   .showImage {
     height: 400px;
+    margin-bottom: 2rem;
+    margin-top: 1rem;
   }
 }
 
@@ -286,6 +309,7 @@ input {
   }
   .showBox {
     background-color: white;
+    width: 800px;
   }
   .episode-box {
     width: 300px;
@@ -306,6 +330,15 @@ input {
   .episodesFilterResult {
     display: block;
     margin-top: 1rem;
+  }
+}
+@media only screen and (min-width: 1000px) {
+  .showBox {
+    width: 850px;
+  }
+  .showImage {
+    width: 400px;
+    height: 450px;
   }
 }
 
@@ -363,6 +396,7 @@ input {
   }
   .showsHeader {
     width: 80%;
+    max-width: 650px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

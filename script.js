@@ -28,7 +28,7 @@ function addSpinner() {
   spinnerBorder.role = "status";
   loading.className = "sr-only";
   loading.textContent = "Loading...";
-
+  // rootElem.style.minHeight = '80vh';
   rootElem.appendChild(spinner);
   spinner.appendChild(spinnerBorder);
   spinnerBorder.appendChild(loading);
@@ -46,6 +46,7 @@ function makeHeaderInputsForShows() {
   createShowsDropdown();
   createShowsSearchBox();
   createShowsFilterResult(shows);
+  createScrollToTopBtn();
 }
 function createShowsSelectElem() {
   let selectEl = document.createElement("select");
@@ -430,5 +431,37 @@ function removeEpisodesHeader() {
 }
 
 /*==================================EPISODES LIST DISPLAY ENDS =========================== */
+//SCROLL TO TOP BUTTON
+function createScrollToTopBtn() {
+  let scrollToTopBtn = document.createElement("button");
+  let icon = document.createElement("i");
+  scrollToTopBtn.appendChild(icon);
+  rootElem.appendChild(scrollToTopBtn);
+  scrollToTopBtn.title = "Back to top";
+  scrollToTopBtn.id = "scrollToTop";
+  icon.className = "fa fa-arrow-circle-up";
+
+  scrollToTopBtn.addEventListener("click", scrollToTop);
+}
+function scrollToTop() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+//FUNCTION TO DISPLAY THE SCROLL TO TOP BUTTON WHEN USER SCROLLS DOWN 20PX
+window.onscroll = function () {
+  
+  scrollFunction();
+};
+function scrollFunction() {
+  let scrollToTopBtn = document.querySelector("#scrollToTop");
+  
+  if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
+    scrollToTopBtn.style.visibility = "visible";
+    scrollToTopBtn.style.opacity = 1;
+  } else {
+    // scrollToTopBtn.style.visibility = "hidden";
+    scrollToTopBtn.style.opacity = 0;
+  }
+}
 
 window.onload = setup;
